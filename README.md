@@ -1,6 +1,3 @@
-# 2-day1-assignment
-Day1-assignment
-
 # Group 2 - House Sales: Data Cleaning and EDA
 
 This project explores house sales in King County, Washington, USA. We clean the dataset and examine how price relates to house size, bedrooms, construction quality and location.
@@ -15,6 +12,45 @@ This project explores house sales in King County, Washington, USA. We clean the 
 ## Use case
 
 Which physical characteristics of a house (size, construction quality, age, basement, renovation) are associated with a higher sale price once location is taken into account? For architects and developers, this shows which design decisions the market values. The clean dataset will be used on Day 2 to predict the sale price.
+
+## Repository structure
+
+```
+2-day1-assignment/
+├── data/                  # Not tracked by git; the dataset is downloaded by the notebook
+├── figures/               # Figures exported by the notebook (PNG)
+├── notebook/
+│   └── Day1Group2.ipynb   # Data cleaning and exploratory analysis
+├── requirements.txt       # Python packages with fixed versions
+├── LICENSE                # MIT licence for the code
+└── README.md
+```
+
+## How to run
+
+1. Install Python 3.12 and clone the repository:
+
+   ```bash
+   git clone https://github.com/iaac-maai/2-day1-assignment.git
+   cd 2-day1-assignment
+   ```
+
+2. Create a virtual environment and install the dependencies:
+
+   ```bash
+   python -m venv .venv
+   # Windows
+   .venv\Scripts\activate
+   # macOS / Linux
+   source .venv/bin/activate
+
+   pip install -r requirements.txt
+   pip install jupyter
+   ```
+
+3. Open `notebook/Day1Group2.ipynb` and run all cells (*Restart kernel → Run All*).
+
+**Data:** you don't need to download anything by hand. The notebook uses `kagglehub` to download `kc_house_data.csv` from the Kaggle dataset [harlfoxem/housesalesprediction](https://www.kaggle.com/datasets/harlfoxem/housesalesprediction) and caches it locally. CSV files are excluded from the repository by `.gitignore`.
 
 ## Dataset
 
@@ -71,6 +107,18 @@ The notebook includes:
 - Living area, above-ground area and bathrooms contain overlapping information.
 - Condition has a weak overall correlation with total price, although patterns may differ within locations.
 
+![Price distribution](figures/04_price_distribution.png)
+
+*The price distribution is right-skewed with a long tail of expensive houses, which is why we report the median and will model log(price).*
+
+![Price per sqft by ZIP code](figures/06_price_per_sqft_by_zipcode.png)
+
+*Among the 10 ZIP codes with the most sales, the median price per sqft varies by about 2.5×, which shows that location is a major driver of price.*
+
+![Spearman correlation heatmap](figures/10_correlation_heatmap.png)
+
+*Grade (0.63) and living area (0.61) have the strongest correlations with price, and living area, above-ground area and bathrooms overlap strongly with each other.*
+
 These findings show associations, not proof of cause and effect.
 
 
@@ -81,4 +129,16 @@ These findings show associations, not proof of cause and effect.
 - Some groups contain fewer sales, making comparisons less reliable.
 - Several connected features can affect price at the same time.
 
+## AI usage disclosure
+
+- **Tools:** [e.g. ChatGPT (GPT-x), Claude, GitHub Copilot]
+- **Why:** [e.g. to debug pandas errors, to look up seaborn syntax, to improve the wording of interpretations]
+- **Where:** [e.g. the outlier-filtering code, the correlation heatmap cell, the README text]
+- **How:** [e.g. we asked for explanations or code snippets, then read, tested and adapted them to our data; we checked every number in the findings against the notebook output]
+- **Lessons learned:** [e.g. AI suggestions sometimes used column names that don't exist or deprecated functions, so we had to verify outputs; it was most useful for plotting syntax, less useful for deciding on interpretations]
+
+## Licence
+
+- **Code:** MIT licence, see [LICENSE](LICENSE).
+- **Data:** the King County house sales dataset is published on Kaggle under **CC0: Public Domain** by harlfoxem ([source](https://www.kaggle.com/datasets/harlfoxem/housesalesprediction)). The data is not redistributed in this repository.
 
